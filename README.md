@@ -7,7 +7,7 @@
 Just download ultramsg.class.php or use Composer: 
 
 ```
-composer require ultramsg/whatsappapi
+composer require ultramsg/whatsapp-php-sdk
 ```
 
 
