@@ -8,15 +8,14 @@
 "url": "https://github.com/ultramsg/whatsapp-php-sdk"
 }
 ],
-"version": "1.0.0",
+"version": "2.0.0",
 "license": "MIT",
 "authors": [
 {
 "name": "ultramsg.com",
 "email": "info@ultramsg.com"
 }
-],
-"minimum-stability": "stable",
+], 
 "autoload": {
 "classmap": ["ultramsg.class.php"]
 },
