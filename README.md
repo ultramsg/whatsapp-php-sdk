@@ -15,15 +15,15 @@ composer require ultramsg/whatsapp-php-sdk
 
 ```php
     <?php
-    require_once('ultramsg.class.php'); 
+	require_once('ultramsg.class.php'); 
 	$ultramsg_token="tof7lsdJasdloaa57e"; // Ultramsg.com token
 	$instance_id="1511"; // Ultramsg.com instance id
 	$client = new UltraMsg\WhatsAppApi($ultramsg_token,$instance_id);
 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$body="Hello world"; 
 	$api=$client->sendChatMessage($to,$body);
-    print_r($api);
+	print_r($api);
 ```
  > **NOTE:**  you need replace instance_id and token with yours in [ultramsg.com](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api) account if you don't have account create one from [here](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api)
 
