@@ -15,7 +15,10 @@ composer require ultramsg/whatsapp-php-sdk
 
 ```php
     <?php
-	require_once('ultramsg.class.php'); 
+	
+	require_once ('vendor/autoload.php'); // if you use Composer
+	//require_once('ultramsg.class.php'); // if you download ultramsg.class.php
+
 	$ultramsg_token="tof7lsdJasdloaa57e"; // Ultramsg.com token
 	$instance_id="1511"; // Ultramsg.com instance id
 	$client = new UltraMsg\WhatsAppApi($ultramsg_token,$instance_id);
