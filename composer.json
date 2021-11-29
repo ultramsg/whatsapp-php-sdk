@@ -19,7 +19,5 @@
 "autoload": {
 "classmap": ["ultramsg.class.php"]
 },
-"require": {
-        "php": ">=7.0.0"
-    }
+"require": {}
 }
