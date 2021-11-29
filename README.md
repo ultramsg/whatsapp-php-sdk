@@ -47,11 +47,11 @@ priority =10: Non-urgent promotional offers and notifications to your customers.
 **Default value** : 10
 
 ```php
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$body="Hello world";
 	$priority=10;
 	$api=$client->sendChatMessage($to,$body,$priority);
-    print_r($api);
+	print_r($api);
 ```
 
 ## Send image 
@@ -79,11 +79,11 @@ Max file size : 64MB .
 - webp : https://file-example.s3-accelerate.amazonaws.com/images/test.webp
 
 ```php
-    $to="put_your_mobile_number_here"; 
-    $caption="image Caption"; 
+	$to="put_your_mobile_number_here"; 
+	$caption="image Caption"; 
 	$image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
 	$api=$client->sendImageMessage($to,$caption,$image);
-    print_r($api);
+	print_r($api);
 ```
 ## Send document 
 * **$filename** : File name, for example 1.jpg or Hello.pdf
@@ -94,11 +94,11 @@ Supported most extensions like ( zip , xlsx , csv , txt , pptx , docx ....etc ) 
 Max file size : 64MB .
 
 ```php
-    $to="put_your_mobile_number_here"; 
-    $filename="image Caption"; 
+	$to="put_your_mobile_number_here"; 
+	$filename="image Caption"; 
 	$document="https://file-example.s3-accelerate.amazonaws.com/documents/cv.pdf"; 
 	$api=$client->sendDocumentMessage($to,$filename,$document);
-    print_r($api);
+	print_r($api);
 ```
 
 ## Send audio 
@@ -109,19 +109,19 @@ Supported extensions ( mp3 , aac , ogg ) .
 Max file size : 64MB .
 
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$audio="https://file-example.s3-accelerate.amazonaws.com/audio/2.mp3"; 
 	$api=$client->sendAudioMessage($to,$audio);
-    print_r($api);
+	print_r($api);
 ```
 ## Send voice 
 * **$audio** : HTTP link audio ogg-file with opus codec or base64 ogg-file in opus codec
 
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$audio="https://file-example.s3-accelerate.amazonaws.com/voice/oog_example.ogg"; 
 	$api=$client->sendVoiceMessage($to,$audio);
-    print_r($api);
+	print_r($api);
 ```
 
 ## Send video 
@@ -131,19 +131,19 @@ Supported extensions ( mp4 , 3gp , mov ) .
 
 Max file size : 64MB .
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4"; 
 	$api=$client->sendVideoMessage($to,$video);
-    print_r($api);
+	print_r($api);
 ```
 ## Send link 
 * **$link** : HTTP or HTTPS link
 
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$link="https://ultramsg.com"; 
 	$api=$client->sendLinkMessage($to,$link);
-    print_r($api);
+	print_r($api);
 ```
 ## Send contact 
 * **$contact** :Contact ID or Contact IDs array example :
@@ -158,10 +158,10 @@ or
 
 Max length : 300 char, almost 15 contacts
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$contact="14000000001@c.us"; 
 	$api=$client->sendContactMessage($to,$contact);
-    print_r($api);
+	print_r($api);
 ```
 ## Send location 
 * **$address** : Text under the location.
@@ -172,12 +172,12 @@ Max length : 300 char .
 * **$lat** : Latitude
 * **$lng** : longitude
 ```php 
-    $to="put_your_mobile_number_here"; 
+	$to="put_your_mobile_number_here"; 
 	$address="ABC company \n Sixth floor , office 38"; 
 	$lat="25.197197"; 
 	$lng="55.2721877"; 
 	$api=$client->sendLocationMessage($to,$address,$lat,$lng);
-    print_r($api);
+	print_r($api);
 ```
 ## Send vcard 
 * **$vcard** : Text value vcard 3.0
@@ -218,58 +218,58 @@ get the messages that sent by api
   - desc : sorted messages by ID from largest to smallest .
 
 ```php 
-    $page=1;
-    $limit=100;
-    $status="all";
-    $sort="asc";
-    $api=$client->getMessages($page,$limit,$status,$sort);
-    print_r($api);
+	$page=1;
+	$limit=100;
+	$status="all";
+	$sort="asc";
+	$api=$client->getMessages($page,$limit,$status,$sort);
+	print_r($api);
 ```
 
 ## get Messages statistics 
 
 ```php 
 	$api=$client->getMessageStatistics();
-    print_r($api);
+	print_r($api);
 ```
 
 ## get Instance status 
 
 ```php 
 	$api=$client->getInstanceStatus();
-    print_r($api);
+	print_r($api);
 ```
 
 ## get Instance qr image
 
 ```php 
-    header('Content-Type: image/png');
+	header('Content-Type: image/png');
 	$api=$client->getInstanceQr();
-    print_r($api);
+	print_r($api);
 ```
 ## get Instance qrCode 
 
 ```php  
 	$api=$client->getInstanceQrCode();
-    print_r($api);
+	print_r($api);
 ```
 ## get Instance screenshot 
  
 ```php  
-    header('Content-Type: image/png');
+	header('Content-Type: image/png');
 	$api=$client->getInstanceScreenshot();
-    print_r($api);
+	print_r($api);
 ```
 or base64
 ```php   
 	$api=$client->getInstanceScreenshot("base64");
-    print_r($api);
+	print_r($api);
 ```
 ## get Instance info
 Get connected phone informations : number , name , image etc..
 ```php  
 	$api=$client->getInstanceMe();
-    print_r($api);
+	print_r($api);
 ```
 ## get Instance settings
 sendDelay : Delay in seconds between sending message, Default 1 second
@@ -283,7 +283,7 @@ webhook_message_received : on/off notifications in webhooks when message receive
 webhook_message_create : on/off notifications in webhooks when message create .
 ```php  
 	$api=$client->getInstanceSettings();
-    print_r($api);
+	print_r($api);
 ```
 
 ## Instance takeover
@@ -291,21 +291,21 @@ Returns the active session if the device has connected to another instance of We
 
 ```php  
 	$api=$client->sendInstanceTakeover();
-    print_r($api);
+	print_r($api);
 ```
 ## Instance logout
 Logout from WhatsApp Web to get new QR code.
 
 ```php  
 	$api=$client->sendInstanceLogout();
-    print_r($api);
+	print_r($api);
 ```
 ## Instance Restart
 Restart your instance.
 
 ```php  
 	$api=$client->sendInstanceRestart();
-    print_r($api);
+	print_r($api);
 ```
 ## Instance settings update
 * **sendDelay** : Delay in seconds between sending message .
@@ -319,14 +319,14 @@ Restart your instance.
 * **webhook_message_ack** : true/false ack (message delivered and message viewed) notifications in webhooks.
 
 ```php  
-    $sendDelay=1;
-    $webhook_url="";
-    $webhook_message_received=false;
-    $webhook_message_create=false;
-    $webhook_message_ack=false;
+	$sendDelay=1;
+	$webhook_url="";
+	$webhook_message_received=false;
+	$webhook_message_create=false;
+	$webhook_message_ack=false;
     
-    $api=$client->sendInstanceSettings($sendDelay,$webhook_url,$webhook_message_received,$webhook_message_create,$webhook_message_ack);
-    print_r($api);
+	$api=$client->sendInstanceSettings($sendDelay,$webhook_url,$webhook_message_received,$webhook_message_create,$webhook_message_ack);
+	print_r($api);
 ```
 
 # Support

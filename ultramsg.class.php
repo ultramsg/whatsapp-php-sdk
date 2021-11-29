@@ -8,11 +8,19 @@
 	
     class WhatsAppApi {
         protected $token = '';
-        protected $api_url = '';  
-		 
-        public function __construct($token, $api_url){
+        protected $instance_id = '';  
+		
+        /**
+			* Ultramsg constructor.
+			* @param $token
+			* @param $instance_id
+		*/
+        public function __construct($token, $instance_id){
             $this->token = $token;
-            $this->api_url = $api_url;  
+            $this->instance_id = $instance_id;
+			if(ctype_digit($instance_id)){
+				$this->instance_id = "instance".$instance_id;
+			}  
 		}
 		
 		// messages
@@ -133,7 +141,7 @@
 			if(!is_callable('curl_init')){
 				return array("Error"=>"cURL extension is disabled on your server");
 			}
-			$url=$this->api_url."/".$path;
+			$url="https://api.ultramsg.com/".$this->instance_id."/".$path;
 			$params['token'] = $this->token;
 			$data=http_build_query($params);
 			if(strtolower($method)=="get")$url = $url . '?' . $data;
