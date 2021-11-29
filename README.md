@@ -1,6 +1,6 @@
-# [UltraMsg.com](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api) WhatsApp api php SDK
+# [Ultramsg.com](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api) WhatsApp API PHP SDK
 
- Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by [UltraMsg.com](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api)
+ Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by [Ultramsg.com](https://ultramsg.com/?utm_source=github&utm_medium=php&utm_campaign=api)
 
 # Installation
 
