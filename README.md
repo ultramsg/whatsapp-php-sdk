@@ -50,53 +50,51 @@ priority = 5: used with general messages.
 priority =10: Non-urgent promotional offers and notifications to your customers.
 
 **Default value** : 10
-
+* **$referenceId** : Your custom reference ID for this message.
 ```php
 $to="put_your_mobile_number_here"; 
 $body="Hello world";
 $priority=10;
-$api=$client->sendChatMessage($to,$body,$priority);
+$referenceId="SDK"
+$api=$client->sendChatMessage($to,$body,$priority,$referenceId);
 print_r($api);
 ```
 
 ## Send Image 
 * **$caption** : image Caption, UTF-8 or UTF-16 string with emoji .
-* **$image** : HTTP link image or base64-encoded file with mime data
+* **$image** : HTTP link image or base64-encoded file
 
 Supported extensions ( jpg , jpeg , gif , png , svg , webp , bmp ) .
 
-Max file size : 64MB .
+Max file size : 16MB .
 
- **example images links** :
+Max Base64 length : 2,000,000
 
-- jpg : https://file-example.s3-accelerate.amazonaws.com/images/test.jpg
+* **$nocache** : default false
 
-- jpeg : https://file-example.s3-accelerate.amazonaws.com/images/test.jpeg
+false : use a previously uploaded file instead of uploading it with each request
 
-- png : https://file-example.s3-accelerate.amazonaws.com/images/test.png
-
-- svg : https://file-example.s3-accelerate.amazonaws.com/images/test.svg
-
-- gif : https://file-example.s3-accelerate.amazonaws.com/images/test.gif
-
-- bmp : https://file-example.s3-accelerate.amazonaws.com/images/test.bmp
-
-- webp : https://file-example.s3-accelerate.amazonaws.com/images/test.webp
+true : uploading it each request
 
 ```php
 $to="put_your_mobile_number_here"; 
 $caption="image Caption"; 
 $image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
-$api=$client->sendImageMessage($to,$caption,$image);
+$priority=10;
+$referenceId="SDK"
+$nocache=false; 
+$api=$client->sendImageMessage($to,$caption,$image,$priority,$referenceId,$nocache);
 print_r($api);
 ```
 ## Send Document 
 * **$filename** : File name, for example 1.jpg or Hello.pdf
-* **$document** : HTTP link file or base64-encoded file with mime data
+* **$document** : HTTP link file or base64-encoded file
 
 Supported most extensions like ( zip , xlsx , csv , txt , pptx , docx ....etc ) .
 
-Max file size : 64MB .
+Max file size : 100MB .
+
+Max Base64 length : 2,000,000
 
 ```php
 $to="put_your_mobile_number_here"; 
@@ -107,11 +105,13 @@ print_r($api);
 ```
 
 ## Send Audio 
-* **$audio** : HTTP link audio or base64-encoded audio with mime data
+* **$audio** : HTTP link audio or base64-encoded audio 
 
 Supported extensions ( mp3 , aac , ogg ) .
 
-Max file size : 64MB .
+Max file size : 16MB .
+
+Max Base64 length : 2,000,000
 
 ```php 
 $to="put_your_mobile_number_here"; 
@@ -122,6 +122,10 @@ print_r($api);
 ## Send Voice 
 * **$audio** : HTTP link audio ogg-file with opus codec or base64 ogg-file in opus codec
 
+Max file size : 16MB .
+
+Max Base64 length : 2,000,000
+
 ```php 
 $to="put_your_mobile_number_here"; 
 $audio="https://file-example.s3-accelerate.amazonaws.com/voice/oog_example.ogg"; 
@@ -130,15 +134,19 @@ print_r($api);
 ```
 
 ## Send Video 
-* **$video** : HTTP link video or base64-encoded video with mime data
+* **$video** : HTTP link video or base64-encoded video  
 
 Supported extensions ( mp4 , 3gp , mov ) .
 
-Max file size : 64MB .
+Max file size : 16MB .
+
+Max Base64 length : 2,000,000
+
 ```php 
 $to="put_your_mobile_number_here"; 
+$caption="video Caption"; 
 $video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4"; 
-$api=$client->sendVideoMessage($to,$video);
+$api=$client->sendVideoMessage($to,$caption,$video);
 print_r($api);
 ```
 ## Send Link 
@@ -217,17 +225,29 @@ get the messages that sent by api
   - sent : get sent messages .
   - queue : get queue messages .
   - unsent : get unsent messages .
+  - invalid : get invalid messages .
   - all : get all messages .
 * **$sort** :  
   - asc : sorted messages by ID from smallest to largest .
   - desc : sorted messages by ID from largest to smallest .
+* **$id** : filter messages by message ID .
+* **$referenceId** : filter messages by your custom reference ID .
+* **$from** : filter messages by WhatsApp sender number e.g 14155552671@c.us .
+* **$to** : filter messages by recipient number  e.g 14155552671@c.us or 14155552671-441234567890@g.us .
+* **$ack** : filter messages by message ack status [ pending , server , device , read , played ] .
+
 
 ```php 
 $page=1;
 $limit=100;
 $status="all";
 $sort="asc";
-$api=$client->getMessages($page,$limit,$status,$sort);
+$id="";
+$referenceId="";
+$from="";
+$to="";
+$ack="";
+$api=$client->getMessages($page,$limit,$status,$sort,$id,$referenceId,$from,$to,$ack);
 print_r($api);
 ```
 
@@ -286,6 +306,8 @@ webhook_message_ack : on/off ack (message delivered and message viewed) notifica
 webhook_message_received : on/off notifications in webhooks when message received .
 
 webhook_message_create : on/off notifications in webhooks when message create .
+
+webhook_message_download_media  :  on/off to get received document / media files.
 ```php
 $api=$client->getInstanceSettings();
 print_r($api);
@@ -329,10 +351,90 @@ $webhook_url="";
 $webhook_message_received=false;
 $webhook_message_create=false;
 $webhook_message_ack=false;
+$webhook_message_download_media=false;
 
-$api=$client->sendInstanceSettings($sendDelay,$webhook_url,$webhook_message_received,$webhook_message_create,$webhook_message_ack);
+$api=$client->sendInstanceSettings($sendDelay,$webhook_url,$webhook_message_received,$webhook_message_create,$webhook_message_ack,$webhook_message_download_media);
 print_r($api);
 ```
+
+## Get the chats list
+
+```php  
+$api=$client->getChats();
+print_r($api);
+```
+
+## get last message from chat conversation
+
+* **$chatId** : chatID for contact or group e.g 14155552671@c.us or 14155552671-441234567890@g.us
+* **$limit** : number of messages per request .
+
+max value : 1000 .
+
+```php  
+$chatId="14155552671@c.us";
+$limit=100;
+$api=$client->getChatsMessages($chatId,$limit);
+print_r($api);
+```
+
+
+## Get the contacts list
+
+```php  
+$api=$client->getContacts();
+print_r($api);
+```
+
+## Get contact info
+
+* **$chatId** : chatID for contact e.g 14155552671@c.us 
+
+```php  
+$chatId="14155552671@c.us"; 
+$api=$client->getContact($chatId);
+print_r($api);
+```
+
+
+## Gets all blocked contacts
+
+```php  
+$api=$client->getBlockedContacts();
+print_r($api);
+```
+
+## block contact from WhatsApp
+
+* **$chatId** : chatID for contact e.g 14155552671@c.us 
+
+```php  
+$chatId="14155552671@c.us"; 
+$api=$client->blockContact($chatId);
+print_r($api);
+```
+
+## Unblock contact from WhatsApp
+
+* **$chatId** : chatID for contact e.g 14155552671@c.us 
+
+```php  
+$chatId="14155552671@c.us"; 
+$api=$client->unblockContact($chatId);
+print_r($api);
+```
+
+## Check if number is WhatsApp user
+
+* **$chatId** : chatID for contact e.g 14155552671@c.us 
+
+```php  
+$chatId="14155552671@c.us"; 
+$api=$client->checkContact($chatId);
+print_r($api);
+```
+
+
 
 # Support
 Use **Issues** to contact me

@@ -24,8 +24,8 @@
 		}
 		
 		// messages
-		public function getMessages($page=1,$limit=100,$status="all",$sort="asc"){
-			$params =array("page"=>$page,"limit"=>$limit,"status"=>$status,"sort"=>$sort);
+		public function getMessages($page=1,$limit=100,$status="all",$sort="asc",$id="",$referenceId="",$from="",$to="",$ack=""){
+			$params =array("page"=>$page,"limit"=>$limit,"status"=>$status,"sort"=>$sort,"id"=>$id,"referenceId"=>$referenceId,"from"=>$from,"to"=>$to,"ack"=>$ack);
 			return $this->sendRequest("GET","messages",$params );
 		}
 		
@@ -33,51 +33,51 @@
 			return $this->sendRequest("GET","messages/statistics");
 		}
 		
-		public function sendChatMessage($to,$body,$priority=10){
-			$params =array("to"=>$to,"body"=>$body,"priority"=>$priority);
+		public function sendChatMessage($to,$body,$priority=10,$referenceId=""){
+			$params =array("to"=>$to,"body"=>$body,"priority"=>$priority,"referenceId"=>$referenceId);
 			return $this->sendRequest("POST","messages/chat",$params );
 		}
 		
-		public function sendImageMessage($to,$caption="",$image,$priority=10){
-			$params =array("to"=>$to,"caption"=>$caption,"image"=>$image,"priority"=>$priority);
+		public function sendImageMessage($to,$caption="",$image,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"caption"=>$caption,"image"=>$image,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/image",$params );
 		}
 		
-		public function sendDocumentMessage($to,$filename,$document,$priority=10){
-			$params =array("to"=>$to,"filename"=>$filename,"document"=>$document,"priority"=>$priority);
+		public function sendDocumentMessage($to,$filename,$document,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"filename"=>$filename,"document"=>$document,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/document",$params );
 		}
 		
-		public function sendAudioMessage($to,$audio,$priority=10){
-			$params =array("to"=>$to,"audio"=>$audio,"priority"=>$priority);
+		public function sendAudioMessage($to,$audio,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"audio"=>$audio,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/audio",$params );
 		}
 		
-		public function sendVoiceMessage($to,$audio,$priority=10){
-			$params =array("to"=>$to,"audio"=>$audio,"priority"=>$priority);
+		public function sendVoiceMessage($to,$audio,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"audio"=>$audio,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/voice",$params );
 		}
 		
-		public function sendVideoMessage($to,$video,$priority=10){
-			$params =array("to"=>$to,"video"=>$video,"priority"=>$priority);
+		public function sendVideoMessage($to,$caption="",$video,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"caption"=>$caption,"video"=>$video,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/video",$params );
 		}
 		
-		public function sendLinkMessage($to,$link,$priority=10){
-			$params =array("to"=>$to,"link"=>$link,"priority"=>$priority);
+		public function sendLinkMessage($to,$link,$priority=10,$referenceId=""){
+			$params =array("to"=>$to,"link"=>$link,"priority"=>$priority,"referenceId"=>$referenceId);
 			return $this->sendRequest("POST","messages/link",$params );
 		}
 		
-		public function sendContactMessage($to,$contact,$priority=10){
-			$params =array("to"=>$to,"contact"=>$contact,"priority"=>$priority);
+		public function sendContactMessage($to,$contact,$priority=10,$referenceId=""){
+			$params =array("to"=>$to,"contact"=>$contact,"priority"=>$priority,"referenceId"=>$referenceId);
 			return $this->sendRequest("POST","messages/contact",$params );
 		}
-		public function sendLocationMessage($to,$address,$lat,$lng,$priority=10){
-			$params =array("to"=>$to,"address"=>$address,"lat"=>$lat,"lng"=>$lng,"priority"=>$priority);
+		public function sendLocationMessage($to,$address,$lat,$lng,$priority=10,$referenceId=""){
+			$params =array("to"=>$to,"address"=>$address,"lat"=>$lat,"lng"=>$lng,"priority"=>$priority,"referenceId"=>$referenceId);
 			return $this->sendRequest("POST","messages/location",$params );
 		}
-		public function sendVcardMessage($to,$vcard,$priority=10){
-			$params =array("to"=>$to,"vcard"=>$vcard,"priority"=>$priority);
+		public function sendVcardMessage($to,$vcard,$priority=10,$referenceId=""){
+			$params =array("to"=>$to,"vcard"=>$vcard,"priority"=>$priority,"referenceId"=>$referenceId);
 			return $this->sendRequest("POST","messages/vcard",$params );
 		}
 		public function sendClearMessage($status){
@@ -110,8 +110,7 @@
 		public function getInstanceSettings(){
 			return $this->sendRequest("GET","instance/settings");
 		}
-		
-		
+		 
 		public function sendInstanceTakeover(){
 			return $this->sendRequest("POST","instance/takeover" );
 		}
@@ -124,9 +123,8 @@
 			return $this->sendRequest("POST","instance/restart" );
 		}
 		
-		public function sendInstanceSettings($sendDelay,$webhook_url,$webhook_message_received,$webhook_message_create,$webhook_message_ack){
-			
-			$params =array("sendDelay"=>$sendDelay,"webhook_url"=>$webhook_url,"webhook_message_received"=>json_encode($webhook_message_received),"webhook_message_create"=>json_encode($webhook_message_create),"webhook_message_ack"=>json_encode($webhook_message_ack));
+		public function sendInstanceSettings($sendDelay="1",$webhook_url="",$webhook_message_received=false,$webhook_message_create=false,$webhook_message_ack=false,$webhook_message_download_media=false){
+			$params =array("sendDelay"=>$sendDelay,"webhook_url"=>$webhook_url,"webhook_message_received"=>json_encode($webhook_message_received),"webhook_message_create"=>json_encode($webhook_message_create),"webhook_message_ack"=>json_encode($webhook_message_ack),"webhook_message_download_media"=>json_encode($webhook_message_download_media));
 			return $this->sendRequest("POST","instance/settings",$params);
 		}
 		
@@ -134,7 +132,46 @@
 			return $this->sendRequest("POST","instance/clear" );
 		}
 		
+		// Chats
 		
+		public function getChats(){
+			return $this->sendRequest("GET","chats");
+		}
+		
+		public function getChatsMessages($chatId,$limit=100){
+			$params =array("chatId"=>$chatId,"limit"=>$limit);
+			return $this->sendRequest("GET","chats/messages",$params);
+		}
+		
+		// Contacts
+		
+		public function getContacts(){
+			return $this->sendRequest("GET","contacts");
+		}
+		
+		public function getContact($chatId){
+			$params =array("chatId"=>$chatId);
+			return $this->sendRequest("GET","contacts/contact",$params);
+		}
+		
+		public function getBlockedContacts(){
+			return $this->sendRequest("GET","contacts/blocked");
+		}
+		
+		public function checkContact($chatId){
+			$params =array("chatId"=>$chatId);
+			return $this->sendRequest("GET","contacts/check",$params);
+		}
+			
+		public function blockContact($chatId){
+			$params =array("chatId"=>$chatId);
+			return $this->sendRequest("POST","contacts/block",$params);
+		}
+		
+		public function unblockContact($chatId){
+			$params =array("chatId"=>$chatId);
+			return $this->sendRequest("POST","contacts/unblock",$params);
+		}
 		
 		public function sendRequest($method,$path,$params=array()){
 			
@@ -150,6 +187,8 @@
 				curl_setopt($curl, CURLOPT_POST, true);
 				curl_setopt($curl, CURLOPT_POSTFIELDS,$data);
 			}	 
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curl, CURLOPT_HEADER, 1);
 			$response = curl_exec($curl);
@@ -172,4 +211,4 @@
 		
 		
 		
-	}																																															
+	}																																																					
