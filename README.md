@@ -55,7 +55,7 @@ priority =10: Non-urgent promotional offers and notifications to your customers.
 $to="put_your_mobile_number_here"; 
 $body="Hello world";
 $priority=10;
-$referenceId="SDK"
+$referenceId="SDK";
 $api=$client->sendChatMessage($to,$body,$priority,$referenceId);
 print_r($api);
 ```
