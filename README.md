@@ -81,7 +81,7 @@ $to="put_your_mobile_number_here";
 $caption="image Caption"; 
 $image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
 $priority=10;
-$referenceId="SDK"
+$referenceId="SDK";
 $nocache=false; 
 $api=$client->sendImageMessage($to,$caption,$image,$priority,$referenceId,$nocache);
 print_r($api);
