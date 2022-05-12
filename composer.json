@@ -5,7 +5,7 @@
 "repositories": [
 {
 "type": "vcs",
-"url": "https://github.com/ultramsg/whatsapp-php-sdk"
+"url": "https://ultramsg.com"
 }
 ],
 "version": "2.0.3",
