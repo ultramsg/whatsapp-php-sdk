@@ -81,7 +81,7 @@ $to="put_your_mobile_number_here";
 $caption="image Caption"; 
 $image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
 $priority=10;
-$referenceId="SDK";
+$referenceId="SDK"
 $nocache=false; 
 $api=$client->sendImageMessage($to,$caption,$image,$priority,$referenceId,$nocache);
 print_r($api);
@@ -216,6 +216,24 @@ $api=$client->sendVcardMessage($to,$vcard);
 print_r($api);
 ```
 
+## Resend messages by status 
+* **$status** :  unsent or expired
+ 
+```php 
+$status="expired";
+$api=$client->resendByStatus($status);
+print_r($api);
+```
+
+## Resend message by ID 
+* **$id** :   message id
+ 
+```php
+$id=123;
+$api=$client->resendById($id);
+print_r($api);
+```
+
 ## Get Messages
 get the messages that sent by api
 
@@ -226,6 +244,7 @@ get the messages that sent by api
   - queue : get queue messages .
   - unsent : get unsent messages .
   - invalid : get invalid messages .
+  - expired : get expired messages .
   - all : get all messages .
 * **$sort** :  
   - asc : sorted messages by ID from smallest to largest .

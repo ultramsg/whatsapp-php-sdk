@@ -84,6 +84,15 @@
 			$params =array("status"=>$status);
 			return $this->sendRequest("POST","messages/clear",$params );
 		}
+		public function resendByStatus($status){
+			$params =array("status"=>$status);
+			return $this->sendRequest("POST","messages/resendByStatus",$params );
+		}
+		
+		public function resendById($id){
+			$params =array("id"=>$id);
+			return $this->sendRequest("POST","messages/resendById",$params );
+		}
 		
 		// instance
 		
@@ -110,105 +119,105 @@
 		public function getInstanceSettings(){
 			return $this->sendRequest("GET","instance/settings");
 		}
-		 
-		public function sendInstanceTakeover(){
-			return $this->sendRequest("POST","instance/takeover" );
-		}
-		
-		public function sendInstanceLogout(){
-			return $this->sendRequest("POST","instance/logout" );
-		}
-		
-		public function sendInstanceRestart(){
-			return $this->sendRequest("POST","instance/restart" );
-		}
-		
-		public function sendInstanceSettings($sendDelay="1",$webhook_url="",$webhook_message_received=false,$webhook_message_create=false,$webhook_message_ack=false,$webhook_message_download_media=false){
-			$params =array("sendDelay"=>$sendDelay,"webhook_url"=>$webhook_url,"webhook_message_received"=>json_encode($webhook_message_received),"webhook_message_create"=>json_encode($webhook_message_create),"webhook_message_ack"=>json_encode($webhook_message_ack),"webhook_message_download_media"=>json_encode($webhook_message_download_media));
-			return $this->sendRequest("POST","instance/settings",$params);
-		}
-		
-		public function sendInstanceClear(){
-			return $this->sendRequest("POST","instance/clear" );
-		}
-		
-		// Chats
-		
-		public function getChats(){
-			return $this->sendRequest("GET","chats");
-		}
-		
-		public function getChatsMessages($chatId,$limit=100){
-			$params =array("chatId"=>$chatId,"limit"=>$limit);
-			return $this->sendRequest("GET","chats/messages",$params);
-		}
-		
-		// Contacts
-		
-		public function getContacts(){
-			return $this->sendRequest("GET","contacts");
-		}
-		
-		public function getContact($chatId){
-			$params =array("chatId"=>$chatId);
-			return $this->sendRequest("GET","contacts/contact",$params);
-		}
-		
-		public function getBlockedContacts(){
-			return $this->sendRequest("GET","contacts/blocked");
-		}
-		
-		public function checkContact($chatId){
-			$params =array("chatId"=>$chatId);
-			return $this->sendRequest("GET","contacts/check",$params);
-		}
-			
-		public function blockContact($chatId){
-			$params =array("chatId"=>$chatId);
-			return $this->sendRequest("POST","contacts/block",$params);
-		}
-		
-		public function unblockContact($chatId){
-			$params =array("chatId"=>$chatId);
-			return $this->sendRequest("POST","contacts/unblock",$params);
-		}
-		
-		public function sendRequest($method,$path,$params=array()){
-			
-			if(!is_callable('curl_init')){
-				return array("Error"=>"cURL extension is disabled on your server");
-			}
-			$url="https://api.ultramsg.com/".$this->instance_id."/".$path;
-			$params['token'] = $this->token;
-			$data=http_build_query($params);
-			if(strtolower($method)=="get")$url = $url . '?' . $data;
-			$curl = curl_init($url);
-			if(strtolower($method)=="post"){
-				curl_setopt($curl, CURLOPT_POST, true);
-				curl_setopt($curl, CURLOPT_POSTFIELDS,$data);
-			}	 
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($curl, CURLOPT_HEADER, 1);
-			$response = curl_exec($curl);
-			$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-			if($httpCode == 404) {
-				return array("Error"=>"instance not found or pending please check you instance id");
-			}
-			$contentType = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);
-			$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-			$header = substr($response, 0, $header_size);
-			$body = substr($response, $header_size);
-			curl_close($curl);
-			
-			if (strpos($contentType,'application/json') !== false) {
-				return json_decode($body,true);
-			}
-			return $body;
-		}
-		
-		
-		
-		
-	}																																																					
+	
+	public function sendInstanceTakeover(){
+	return $this->sendRequest("POST","instance/takeover" );
+	}
+	
+	public function sendInstanceLogout(){
+	return $this->sendRequest("POST","instance/logout" );
+	}
+	
+	public function sendInstanceRestart(){
+	return $this->sendRequest("POST","instance/restart" );
+	}
+	
+	public function sendInstanceSettings($sendDelay="1",$webhook_url="",$webhook_message_received=false,$webhook_message_create=false,$webhook_message_ack=false,$webhook_message_download_media=false){
+	$params =array("sendDelay"=>$sendDelay,"webhook_url"=>$webhook_url,"webhook_message_received"=>json_encode($webhook_message_received),"webhook_message_create"=>json_encode($webhook_message_create),"webhook_message_ack"=>json_encode($webhook_message_ack),"webhook_message_download_media"=>json_encode($webhook_message_download_media));
+	return $this->sendRequest("POST","instance/settings",$params);
+	}
+	
+	public function sendInstanceClear(){
+	return $this->sendRequest("POST","instance/clear" );
+	}
+	
+	// Chats
+	
+	public function getChats(){
+	return $this->sendRequest("GET","chats");
+	}
+	
+	public function getChatsMessages($chatId,$limit=100){
+	$params =array("chatId"=>$chatId,"limit"=>$limit);
+	return $this->sendRequest("GET","chats/messages",$params);
+	}
+	
+	// Contacts
+	
+	public function getContacts(){
+	return $this->sendRequest("GET","contacts");
+	}
+	
+	public function getContact($chatId){
+	$params =array("chatId"=>$chatId);
+	return $this->sendRequest("GET","contacts/contact",$params);
+	}
+	
+	public function getBlockedContacts(){
+	return $this->sendRequest("GET","contacts/blocked");
+	}
+	
+	public function checkContact($chatId){
+	$params =array("chatId"=>$chatId);
+	return $this->sendRequest("GET","contacts/check",$params);
+	}
+	
+	public function blockContact($chatId){
+	$params =array("chatId"=>$chatId);
+	return $this->sendRequest("POST","contacts/block",$params);
+	}
+	
+	public function unblockContact($chatId){
+	$params =array("chatId"=>$chatId);
+	return $this->sendRequest("POST","contacts/unblock",$params);
+	}
+	
+	public function sendRequest($method,$path,$params=array()){
+	
+	if(!is_callable('curl_init')){
+	return array("Error"=>"cURL extension is disabled on your server");
+	}
+	$url="https://api.ultramsg.com/".$this->instance_id."/".$path;
+	$params['token'] = $this->token;
+	$data=http_build_query($params);
+	if(strtolower($method)=="get")$url = $url . '?' . $data;
+	$curl = curl_init($url);
+	if(strtolower($method)=="post"){
+	curl_setopt($curl, CURLOPT_POST, true);
+	curl_setopt($curl, CURLOPT_POSTFIELDS,$data);
+	}	 
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_HEADER, 1);
+	$response = curl_exec($curl);
+	$httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+	if($httpCode == 404) {
+	return array("Error"=>"instance not found or pending please check you instance id");
+	}
+	$contentType = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);
+	$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+	$header = substr($response, 0, $header_size);
+	$body = substr($response, $header_size);
+	curl_close($curl);
+	
+	if (strpos($contentType,'application/json') !== false) {
+	return json_decode($body,true);
+	}
+	return $body;
+	}
+	
+	
+	
+	
+	}																																																							

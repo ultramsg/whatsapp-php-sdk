@@ -1,23 +1,32 @@
 {
-"name": "ultramsg/whatsapp-php-sdk",
-"description": "Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by ultramsg.com",
-"type": "library",
-"repositories": [
-{
-"type": "vcs",
-"url": "https://ultramsg.com"
-}
-],
-"version": "2.0.5",
-"license": "MIT",
-"authors": [
-{
-"name": "ultramsg.com",
-"email": "info@ultramsg.com"
-}
-], 
-"autoload": {
-"classmap": ["ultramsg.class.php"]
-},
-"require": {}
+    "name": "ultramsg/whatsapp-php-sdk",
+    "description": "Lightweight PHP library for WhatsApp API to send the whatsappp messages in PHP provided by ultramsg.com",
+    "keywords": [
+        "whatsapp-api",
+        "whatsapp-bot",
+        "whatsapp-chat",
+        "whatsapp-api-php"
+    ],
+    "homepage": "https://ultramsg.com",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ultramsg/whatsapp-php-sdk"
+        }
+    ],
+    "version": "2.0.6",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ultramsg.com",
+            "email": "info@ultramsg.com"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "ultramsg.class.php"
+        ]
+    },
+    "require": {}
 }
