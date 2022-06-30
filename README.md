@@ -4,7 +4,7 @@
 
 # Installation
 
-Just download ultramsg.class.php or use Composer: 
+Just download ultramsg.class.php or use Composer:
 
 ```
 composer require ultramsg/whatsapp-php-sdk
@@ -22,8 +22,8 @@ $ultramsg_token="tof7lsdJasdloaa57e"; // Ultramsg.com token
 $instance_id="instance1150"; // Ultramsg.com instance id
 $client = new UltraMsg\WhatsAppApi($ultramsg_token,$instance_id);
 
-$to="put_your_mobile_number_here"; 
-$body="Hello world"; 
+$to="put_your_mobile_number_here";
+$body="Hello world";
 $api=$client->sendChatMessage($to,$body);
 print_r($api);
 ```
@@ -52,7 +52,7 @@ priority =10: Non-urgent promotional offers and notifications to your customers.
 **Default value** : 10
 * **$referenceId** : Your custom reference ID for this message.
 ```php
-$to="put_your_mobile_number_here"; 
+$to="put_your_mobile_number_here";
 $body="Hello world";
 $priority=10;
 $referenceId="SDK";
@@ -60,7 +60,7 @@ $api=$client->sendChatMessage($to,$body,$priority,$referenceId);
 print_r($api);
 ```
 
-## Send Image 
+## Send Image
 * **$caption** : image Caption, UTF-8 or UTF-16 string with emoji .
 * **$image** : HTTP link image or base64-encoded file
 
@@ -77,16 +77,16 @@ false : use a previously uploaded file instead of uploading it with each request
 true : uploading it each request
 
 ```php
-$to="put_your_mobile_number_here"; 
-$caption="image Caption"; 
-$image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
+$to="put_your_mobile_number_here";
+$caption="image Caption";
+$image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg";
 $priority=10;
 $referenceId="SDK"
-$nocache=false; 
-$api=$client->sendImageMessage($to,$caption,$image,$priority,$referenceId,$nocache);
+$nocache=false;
+$api=$client->sendImageMessage($to,$image,$caption,$priority,$referenceId,$nocache);
 print_r($api);
 ```
-## Send Document 
+## Send Document
 * **$filename** : File name, for example 1.jpg or Hello.pdf
 * **$document** : HTTP link file or base64-encoded file
 
@@ -97,15 +97,15 @@ Max file size : 100MB .
 Max Base64 length : 2,000,000
 
 ```php
-$to="put_your_mobile_number_here"; 
-$filename="image Caption"; 
-$document="https://file-example.s3-accelerate.amazonaws.com/documents/cv.pdf"; 
+$to="put_your_mobile_number_here";
+$filename="image Caption";
+$document="https://file-example.s3-accelerate.amazonaws.com/documents/cv.pdf";
 $api=$client->sendDocumentMessage($to,$filename,$document);
 print_r($api);
 ```
 
-## Send Audio 
-* **$audio** : HTTP link audio or base64-encoded audio 
+## Send Audio
+* **$audio** : HTTP link audio or base64-encoded audio
 
 Supported extensions ( mp3 , aac , ogg ) .
 
@@ -113,27 +113,27 @@ Max file size : 16MB .
 
 Max Base64 length : 2,000,000
 
-```php 
-$to="put_your_mobile_number_here"; 
-$audio="https://file-example.s3-accelerate.amazonaws.com/audio/2.mp3"; 
+```php
+$to="put_your_mobile_number_here";
+$audio="https://file-example.s3-accelerate.amazonaws.com/audio/2.mp3";
 $api=$client->sendAudioMessage($to,$audio);
 print_r($api);
 ```
-## Send Voice 
+## Send Voice
 * **$audio** : HTTP link audio ogg-file with opus codec or base64 ogg-file in opus codec
 
 Max file size : 16MB .
 
 Max Base64 length : 2,000,000
 
-```php 
-$to="put_your_mobile_number_here"; 
-$audio="https://file-example.s3-accelerate.amazonaws.com/voice/oog_example.ogg"; 
+```php
+$to="put_your_mobile_number_here";
+$audio="https://file-example.s3-accelerate.amazonaws.com/voice/oog_example.ogg";
 $api=$client->sendVoiceMessage($to,$audio);
 print_r($api);
 ```
 
-## Send Video 
+## Send Video
 * **$video** : HTTP link video or base64-encoded video  
 
 Supported extensions ( mp4 , 3gp , mov ) .
@@ -142,23 +142,23 @@ Max file size : 16MB .
 
 Max Base64 length : 2,000,000
 
-```php 
-$to="put_your_mobile_number_here"; 
-$caption="video Caption"; 
-$video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4"; 
-$api=$client->sendVideoMessage($to,$caption,$video);
+```php
+$to="put_your_mobile_number_here";
+$caption="video Caption";
+$video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4";
+$api=$client->sendVideoMessage($to,$video,$caption);
 print_r($api);
 ```
-## Send Link 
+## Send Link
 * **$link** : HTTP or HTTPS link
 
-```php 
-$to="put_your_mobile_number_here"; 
-$link="https://ultramsg.com"; 
+```php
+$to="put_your_mobile_number_here";
+$link="https://ultramsg.com";
 $api=$client->sendLinkMessage($to,$link);
 print_r($api);
 ```
-## Send Contact 
+## Send Contact
 * **$contact** :Contact ID or Contact IDs array example :
 
 Example
@@ -170,13 +170,13 @@ or
 14000000001@c.us,14000000002@c.us,14000000003@c.us
 
 Max length : 300 char, almost 15 contacts
-```php 
-$to="put_your_mobile_number_here"; 
-$contact="14000000001@c.us"; 
+```php
+$to="put_your_mobile_number_here";
+$contact="14000000001@c.us";
 $api=$client->sendContactMessage($to,$contact);
 print_r($api);
 ```
-## Send Location 
+## Send Location
 * **$address** : Text under the location.
 
 Supports two lines. To use two lines, use the \n symbol.
@@ -184,21 +184,21 @@ Supports two lines. To use two lines, use the \n symbol.
 Max length : 300 char .
 * **$lat** : Latitude
 * **$lng** : longitude
-```php 
-$to="put_your_mobile_number_here"; 
-$address="ABC company \n Sixth floor , office 38"; 
-$lat="25.197197"; 
-$lng="55.2721877"; 
+```php
+$to="put_your_mobile_number_here";
+$address="ABC company \n Sixth floor , office 38";
+$lat="25.197197";
+$lng="55.2721877";
 $api=$client->sendLocationMessage($to,$address,$lat,$lng);
 print_r($api);
 ```
-## Send Vcard 
+## Send Vcard
 * **$vcard** : Text value vcard 3.0
 
 Max length : 4096 char
 
-```php 
-$to="put_your_mobile_number_here"; 
+```php
+$to="put_your_mobile_number_here";
 $vcard="BEGIN:VCARD
 VERSION:3.0
 N:lastname;firstname
@@ -216,18 +216,18 @@ $api=$client->sendVcardMessage($to,$vcard);
 print_r($api);
 ```
 
-## Resend messages by status 
+## Resend messages by status
 * **$status** :  unsent or expired
- 
-```php 
+
+```php
 $status="expired";
 $api=$client->resendByStatus($status);
 print_r($api);
 ```
 
-## Resend message by ID 
+## Resend message by ID
 * **$id** :   message id
- 
+
 ```php
 $id=123;
 $api=$client->resendById($id);
@@ -256,7 +256,7 @@ get the messages that sent by api
 * **$ack** : filter messages by message ack status [ pending , server , device , read , played ] .
 
 
-```php 
+```php
 $page=1;
 $limit=100;
 $status="all";
@@ -270,35 +270,35 @@ $api=$client->getMessages($page,$limit,$status,$sort,$id,$referenceId,$from,$to,
 print_r($api);
 ```
 
-## Get Messages Statistics 
+## Get Messages Statistics
 
-```php 
+```php
 $api=$client->getMessageStatistics();
 print_r($api);
 ```
 
-## Get Instance Status 
+## Get Instance Status
 
-```php 
+```php
 $api=$client->getInstanceStatus();
 print_r($api);
 ```
 
 ## Get Instance QR Image
 
-```php 
+```php
 header('Content-Type: image/png');
 $api=$client->getInstanceQr();
 print_r($api);
 ```
-## Get Instance QR Code 
+## Get Instance QR Code
 
 ```php  
 $api=$client->getInstanceQrCode();
 print_r($api);
 ```
-## Get Instance Screenshot 
- 
+## Get Instance Screenshot
+
 ```php  
 header('Content-Type: image/png');
 $api=$client->getInstanceScreenshot();
@@ -407,10 +407,10 @@ print_r($api);
 
 ## Get contact info
 
-* **$chatId** : chatID for contact e.g 14155552671@c.us 
+* **$chatId** : chatID for contact e.g 14155552671@c.us
 
 ```php  
-$chatId="14155552671@c.us"; 
+$chatId="14155552671@c.us";
 $api=$client->getContact($chatId);
 print_r($api);
 ```
@@ -425,30 +425,30 @@ print_r($api);
 
 ## block contact from WhatsApp
 
-* **$chatId** : chatID for contact e.g 14155552671@c.us 
+* **$chatId** : chatID for contact e.g 14155552671@c.us
 
 ```php  
-$chatId="14155552671@c.us"; 
+$chatId="14155552671@c.us";
 $api=$client->blockContact($chatId);
 print_r($api);
 ```
 
 ## Unblock contact from WhatsApp
 
-* **$chatId** : chatID for contact e.g 14155552671@c.us 
+* **$chatId** : chatID for contact e.g 14155552671@c.us
 
 ```php  
-$chatId="14155552671@c.us"; 
+$chatId="14155552671@c.us";
 $api=$client->unblockContact($chatId);
 print_r($api);
 ```
 
 ## Check if number is WhatsApp user
 
-* **$chatId** : chatID for contact e.g 14155552671@c.us 
+* **$chatId** : chatID for contact e.g 14155552671@c.us
 
 ```php  
-$chatId="14155552671@c.us"; 
+$chatId="14155552671@c.us";
 $api=$client->checkContact($chatId);
 print_r($api);
 ```
