@@ -78,12 +78,12 @@ true : uploading it each request
 
 ```php
 $to="put_your_mobile_number_here"; 
-$caption="image Caption"; 
 $image="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg"; 
+$caption="image Caption"; 
 $priority=10;
 $referenceId="SDK"
 $nocache=false; 
-$api=$client->sendImageMessage($to,$caption,$image,$priority,$referenceId,$nocache);
+$api=$client->sendImageMessage($to,$image,$caption,$priority,$referenceId,$nocache);
 print_r($api);
 ```
 ## Send Document 
@@ -144,9 +144,9 @@ Max Base64 length : 2,000,000
 
 ```php 
 $to="put_your_mobile_number_here"; 
+$video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4";
 $caption="video Caption"; 
-$video="https://file-example.s3-accelerate.amazonaws.com/video/test.mp4"; 
-$api=$client->sendVideoMessage($to,$caption,$video);
+$api=$client->sendVideoMessage($to,$video,$caption);
 print_r($api);
 ```
 ## Send Link 
