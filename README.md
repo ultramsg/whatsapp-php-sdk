@@ -68,7 +68,7 @@ Supported extensions ( jpg , jpeg , gif , png , svg , webp , bmp ) .
 
 Max file size : 16MB .
 
-Max Base64 length : 2,000,000
+Max Base64 length : 10,000,000
 
 * **$nocache** : default false
 
@@ -85,22 +85,50 @@ $referenceId="SDK";
 $nocache=false; 
 $api=$client->sendImageMessage($to,$image,$caption,$priority,$referenceId,$nocache);
 print_r($api);
+
 ```
+## Send Sticker  
+* **$sticker** : HTTP link image or base64-encoded file
+
+Supported extensions ( jpg , jpeg , gif , png , svg , webp , bmp ) .
+
+Max file size : 16MB .
+
+Max Base64 length : 10,000,000
+
+* **$nocache** : default false
+
+false : use a previously uploaded file instead of uploading it with each request
+
+true : uploading it each request
+
+```php
+$to="put_your_mobile_number_here"; 
+$sticker="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg";  
+$priority=10;
+$referenceId="SDK";
+$nocache=false; 
+$api=$client->sendStickerMessage($to,$sticker,$priority,$referenceId,$nocache);
+print_r($api);
+```
+
 ## Send Document 
 * **$filename** : File name, for example 1.jpg or Hello.pdf
+* **$caption** : Document Caption, UTF-8 or UTF-16 string with emoji .
 * **$document** : HTTP link file or base64-encoded file
 
 Supported most extensions like ( zip , xlsx , csv , txt , pptx , docx ....etc ) .
 
 Max file size : 100MB .
 
-Max Base64 length : 2,000,000
+Max Base64 length : 10,000,000
 
 ```php
 $to="put_your_mobile_number_here"; 
-$filename="image Caption"; 
+$filename="File name"; 
+$caption="Document Caption"; 
 $document="https://file-example.s3-accelerate.amazonaws.com/documents/cv.pdf"; 
-$api=$client->sendDocumentMessage($to,$filename,$document);
+$api=$client->sendDocumentMessage($to,$filename,$document,$caption);
 print_r($api);
 ```
 
@@ -111,7 +139,7 @@ Supported extensions ( mp3 , aac , ogg ) .
 
 Max file size : 16MB .
 
-Max Base64 length : 2,000,000
+Max Base64 length : 10,000,000
 
 ```php 
 $to="put_your_mobile_number_here"; 
@@ -124,7 +152,7 @@ print_r($api);
 
 Max file size : 16MB .
 
-Max Base64 length : 2,000,000
+Max Base64 length : 10,000,000
 
 ```php 
 $to="put_your_mobile_number_here"; 
@@ -140,7 +168,7 @@ Supported extensions ( mp4 , 3gp , mov ) .
 
 Max file size : 16MB .
 
-Max Base64 length : 2,000,000
+Max Base64 length : 10,000,000
 
 ```php 
 $to="put_your_mobile_number_here"; 
@@ -297,18 +325,7 @@ print_r($api);
 $api=$client->getInstanceQrCode();
 print_r($api);
 ```
-## Get Instance Screenshot 
- 
-```php  
-header('Content-Type: image/png');
-$api=$client->getInstanceScreenshot();
-print_r($api);
-```
-or base64
-```php
-$api=$client->getInstanceScreenshot("base64");
-print_r($api);
-```
+
 ## Get Instance Info
 Get connected phone informations : number , name , image etc..
 ```php

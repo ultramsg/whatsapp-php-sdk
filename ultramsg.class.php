@@ -40,9 +40,13 @@
 			$params =array("to"=>$to,"caption"=>$caption,"image"=>$image,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/image",$params );
 		}
+			public function sendStickerMessage($to,$sticker,$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"sticker"=>$sticker,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
+			return $this->sendRequest("POST","messages/sticker",$params );
+		}
 		
-		public function sendDocumentMessage($to,$filename,$document,$priority=10,$referenceId="",$nocache=false){
-			$params =array("to"=>$to,"filename"=>$filename,"document"=>$document,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
+		public function sendDocumentMessage($to,$filename,$document,$caption="",$priority=10,$referenceId="",$nocache=false){
+			$params =array("to"=>$to,"filename"=>$filename,"document"=>$document,"caption"=>$caption,"priority"=>$priority,"referenceId"=>$referenceId,"nocache"=>$nocache);
 			return $this->sendRequest("POST","messages/document",$params );
 		}
 		
