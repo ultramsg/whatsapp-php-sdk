@@ -104,7 +104,7 @@ true : uploading it each request
 
 ```php
 $to="put_your_mobile_number_here"; 
-$sticker="https://file-example.s3-accelerate.amazonaws.com/images/test.jpg";  
+$sticker="https://file-example.s3.us-west-2.amazonaws.com/sticker/1.webp";  
 $priority=10;
 $referenceId="SDK";
 $nocache=false; 
